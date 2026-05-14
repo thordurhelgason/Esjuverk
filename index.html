@@ -1,0 +1,315 @@
+$html = @'
+<!DOCTYPE html>
+<html lang="is">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Esjuverk - Uppfættir og Jarðvinnuþjónusta</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        :root { --primary: #e1892b; --secondary: #bee6f0; --dark: #231f20; --white: #fff; }
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; line-height: 1.6; color: var(--dark); }
+        
+        /* Header */
+        header { background: var(--white); box-shadow: 0 2px 10px rgba(0,0,0,0.1); position: sticky; top: 0; z-index: 1000; }
+        nav { display: flex; justify-content: space-between; align-items: center; padding: 1rem 5%; max-width: 1400px; margin: 0 auto; }
+        .logo-container { display: flex; align-items: center; text-decoration: none; color: var(--dark); }
+        .logo-container img { height: 50px; width: auto; margin-right: 1rem; }
+        .logo-text h1 { font-size: 1.8rem; font-weight: 700; color: var(--primary); letter-spacing: 1px; }
+        .nav-links { display: flex; gap: 2rem; list-style: none; }
+        .nav-links a { text-decoration: none; color: var(--dark); font-weight: 500; transition: color 0.3s; padding: 0.5rem 0; border-bottom: 2px solid transparent; }
+        .nav-links a:hover { color: var(--primary); border-bottom-color: var(--primary); }
+        
+        /* Hero Section */
+        .hero { position: relative; height: 600px; overflow: hidden; background: linear-gradient(135deg, var(--primary), var(--secondary)); }
+        .slideshow-container { position: relative; width: 100%; height: 100%; }
+        .slide { position: absolute; width: 100%; height: 100%; opacity: 0; transition: opacity 1s ease-in-out; top: 0; left: 0; }
+        .slide.active { opacity: 1; }
+        .slide img { width: 100%; height: 100%; object-fit: cover; }
+        .slide-overlay { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(35,31,32,0.4); display: flex; align-items: center; justify-content: center; flex-direction: column; color: var(--white); text-align: center; }
+        .hero-content h2 { font-size: 3rem; margin-bottom: 1rem; text-shadow: 2px 2px 4px rgba(0,0,0,0.5); font-weight: 700; }
+        .hero-content p { font-size: 1.3rem; text-shadow: 1px 1px 3px rgba(0,0,0,0.5); margin-bottom: 2rem; }
+        .hero-btn { background-color: var(--primary); color: var(--white); border: none; padding: 1rem 2.5rem; font-size: 1rem; border-radius: 5px; cursor: pointer; transition: all 0.3s; font-weight: 600; text-decoration: none; display: inline-block; }
+        .hero-btn:hover { background-color: #d17a23; transform: translateY(-2px); box-shadow: 0 5px 15px rgba(225,137,43,0.3); }
+        
+        /* Slide Controls */
+        .slide-controls { position: absolute; bottom: 2rem; left: 50%; transform: translateX(-50%); display: flex; gap: 1rem; z-index: 10; }
+        .dot { width: 12px; height: 12px; border-radius: 50%; background-color: rgba(255,255,255,0.5); cursor: pointer; transition: all 0.3s; }
+        .dot.active { background-color: var(--primary); transform: scale(1.3); }
+        .arrow { position: absolute; top: 50%; transform: translateY(-50%); background-color: rgba(225,137,43,0.8); color: var(--white); border: none; font-size: 1.5rem; padding: 1rem 1.2rem; cursor: pointer; transition: all 0.3s; border-radius: 3px; z-index: 10; }
+        .arrow:hover { background-color: var(--primary); }
+        .arrow.left { left: 2rem; }
+        .arrow.right { right: 2rem; }
+        
+        /* Services */
+        .services { padding: 5rem 5%; max-width: 1400px; margin: 0 auto; }
+        .section-title { text-align: center; font-size: 2.5rem; color: var(--primary); margin-bottom: 1rem; font-weight: 700; }
+        .section-subtitle { text-align: center; color: var(--dark); margin-bottom: 3rem; font-size: 1.1rem; }
+        .services-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 2rem; margin-top: 3rem; }
+        .service-card { background: var(--white); border-radius: 10px; padding: 2rem; text-align: center; transition: all 0.3s; border: 2px solid transparent; box-shadow: 0 4px 15px rgba(0,0,0,0.08); }
+        .service-card:hover { transform: translateY(-5px); box-shadow: 0 8px 25px rgba(225,137,43,0.2); border-color: var(--primary); }
+        .service-icon { font-size: 3rem; margin-bottom: 1rem; height: 80px; display: flex; align-items: center; justify-content: center; background: linear-gradient(135deg, var(--secondary), rgba(225,137,43,0.1)); border-radius: 10px; margin-left: auto; margin-right: auto; }
+        .service-card h3 { color: var(--primary); margin-bottom: 1rem; font-size: 1.3rem; }
+        .service-card p { color: #666; line-height: 1.8; font-size: 0.95rem; }
+        
+        /* About */
+        .about { background: linear-gradient(135deg, var(--secondary), rgba(190,230,240,0.5)); padding: 5rem 5%; }
+        .about-container { max-width: 1400px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; align-items: center; }
+        .about-content h2 { font-size: 2.2rem; color: var(--primary); margin-bottom: 1.5rem; font-weight: 700; }
+        .about-content p { font-size: 1rem; line-height: 1.8; margin-bottom: 1rem; color: var(--dark); }
+        .about-image { border-radius: 10px; overflow: hidden; box-shadow: 0 10px 30px rgba(0,0,0,0.15); height: 400px; }
+        .about-image img { width: 100%; height: 100%; object-fit: cover; }
+        
+        /* CTA */
+        .cta { background: linear-gradient(135deg, var(--dark), #3a3538); color: var(--white); padding: 4rem 5%; text-align: center; }
+        .cta-container { max-width: 800px; margin: 0 auto; }
+        .cta h2 { font-size: 2.2rem; margin-bottom: 1rem; font-weight: 700; }
+        .cta p { font-size: 1.1rem; margin-bottom: 2rem; line-height: 1.8; }
+        .cta-buttons { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
+        .cta-btn { padding: 1rem 2rem; font-size: 1rem; border: 2px solid var(--primary); border-radius: 5px; cursor: pointer; transition: all 0.3s; font-weight: 600; text-decoration: none; }
+        .cta-btn.primary { background-color: var(--primary); color: var(--white); }
+        .cta-btn.primary:hover { background-color: #d17a23; transform: translateY(-2px); box-shadow: 0 5px 15px rgba(225,137,43,0.3); }
+        .cta-btn.secondary { background-color: transparent; color: var(--white); }
+        .cta-btn.secondary:hover { background-color: var(--primary); border-color: var(--primary); }
+        
+        /* Footer */
+        footer { background-color: var(--dark); color: var(--white); padding: 3rem 5%; text-align: center; }
+        .footer-content { max-width: 1400px; margin: 0 auto; }
+        .footer-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 2rem; margin-bottom: 2rem; text-align: left; }
+        .footer-section h4 { color: var(--primary); margin-bottom: 1rem; font-size: 1.1rem; }
+        .footer-section p, .footer-section a { font-size: 0.95rem; margin-bottom: 0.5rem; color: #ccc; text-decoration: none; transition: color 0.3s; }
+        .footer-section a:hover { color: var(--primary); }
+        .footer-bottom { border-top: 1px solid rgba(255,255,255,0.1); padding-top: 2rem; margin-top: 2rem; }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .nav-links { gap: 1rem; font-size: 0.9rem; }
+            .hero-content h2 { font-size: 1.8rem; }
+            .hero-content p { font-size: 1rem; }
+            .section-title { font-size: 2rem; }
+            .services-grid { grid-template-columns: 1fr; }
+            .about-container { grid-template-columns: 1fr; }
+            .about-image { height: 300px; }
+            .cta h2 { font-size: 1.8rem; }
+            .cta-buttons { flex-direction: column; }
+            .cta-btn { width: 100%; }
+            .hero { height: 400px; }
+            .arrow { padding: 0.8rem 1rem; font-size: 1.2rem; }
+            .arrow.left { left: 1rem; }
+            .arrow.right { right: 1rem; }
+        }
+        @media (max-width: 480px) {
+            nav { padding: 0.8rem 3%; }
+            .logo-container img { height: 40px; }
+            .logo-text h1 { font-size: 1.3rem; }
+            .nav-links { gap: 0.5rem; font-size: 0.8rem; }
+            .hero-content h2 { font-size: 1.4rem; }
+            .hero-content p { font-size: 0.9rem; }
+            .section-title { font-size: 1.5rem; }
+            .hero-btn { padding: 0.8rem 1.5rem; font-size: 0.9rem; }
+            .services { padding: 3rem 5%; }
+            .cta { padding: 2rem 5%; }
+            .cta h2 { font-size: 1.4rem; }
+            .cta p { font-size: 0.95rem; }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav>
+            <a href="#" class="logo-container">
+                <img src="images/Esjuverk-Logo.jpg" alt="Esjuverk Logo">
+                <div class="logo-text"><h1>ESJUVERK</h1></div>
+            </a>
+            <ul class="nav-links">
+                <li><a href="#services">Þjónustur</a></li>
+                <li><a href="#about">Um okkur</a></li>
+                <li><a href="#contact">Hafa samband</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <section class="hero">
+        <div class="slideshow-container">
+            <div class="slide active">
+                <img src="images/62844732-fashionable-sportive-girl-posing-next-to-an-excavator-on-a-construction-site.jpg" alt="Verkefni 1">
+                <div class="slide-overlay">
+                    <div class="hero-content">
+                        <h2>Fagleg Uppfætt & Jarðvinna</h2>
+                        <p>Við bjóðum faglega þjónustu í uppfættum og jarðvinnu fyrir öll verkefni</p>
+                        <a href="#services" class="hero-btn">Kynnstu okkar þjónustu</a>
+                    </div>
+                </div>
+            </div>
+            <div class="slide">
+                <img src="images/IMG_2669.jpeg" alt="Verkefni 2">
+                <div class="slide-overlay">
+                    <div class="hero-content">
+                        <h2>Drenlagnir & Hellulagnir</h2>
+                        <p>Fagleg og áreiðanleg þjónusta fyrir allar jarðvinnutarfir</p>
+                        <a href="#services" class="hero-btn">Frekari upplýsingar</a>
+                    </div>
+                </div>
+            </div>
+            <div class="slide">
+                <img src="images/IMG_2668.jpeg" alt="Verkefni 3">
+                <div class="slide-overlay">
+                    <div class="hero-content">
+                        <h2>Kranabílaþjónusta</h2>
+                        <p>Við höfum nútímalegum búnaði fyrir öll verkefni</p>
+                        <a href="#services" class="hero-btn">Skoðaðu meira</a>
+                    </div>
+                </div>
+            </div>
+            <div class="slide">
+                <img src="images/7.jpg" alt="Verkefni 4">
+                <div class="slide-overlay">
+                    <div class="hero-content">
+                        <h2>Fagleg Þjónusta</h2>
+                        <p>Við sprotum fyrir þig með reynslu og þekkingu</p>
+                        <a href="#services" class="hero-btn">Kynntu þér meira</a>
+                    </div>
+                </div>
+            </div>
+            <div class="slide">
+                <img src="images/6.jpg" alt="Verkefni 5">
+                <div class="slide-overlay">
+                    <div class="hero-content">
+                        <h2>Gæðaverkefni</h2>
+                        <p>Við tökum okkur tíma fyrir hvern detalj</p>
+                        <a href="#services" class="hero-btn">Frekari upplýsingar</a>
+                    </div>
+                </div>
+            </div>
+            <button class="arrow left" onclick="changeSlide(-1)">❮</button>
+            <button class="arrow right" onclick="changeSlide(1)">❯</button>
+            <div class="slide-controls">
+                <span class="dot active" onclick="goToSlide(0)"></span>
+                <span class="dot" onclick="goToSlide(1)"></span>
+                <span class="dot" onclick="goToSlide(2)"></span>
+                <span class="dot" onclick="goToSlide(3)"></span>
+                <span class="dot" onclick="goToSlide(4)"></span>
+            </div>
+        </div>
+    </section>
+
+    <section class="services" id="services">
+        <h2 class="section-title">Okkar Þjónustur</h2>
+        <p class="section-subtitle">Við sérhæfum okkur í ýmsum jarðvinnu og uppfættum</p>
+        <div class="services-grid">
+            <div class="service-card">
+                <div class="service-icon">🛣️</div>
+                <h3>Hellulagnir</h3>
+                <p>Fagleg útfærsla á hellulögnum og flötum fyrir alla tegund framkvæmda. Við notum bestu efni og tækni.</p>
+            </div>
+            <div class="service-card">
+                <div class="service-icon">⛏️</div>
+                <h3>Jarðvinna</h3>
+                <p>Þjónusta okkar nær yfir allt sem tengist jarðvinnu og grunnúrvinnslu. Með fullum búnaði og reynslu.</p>
+            </div>
+            <div class="service-card">
+                <div class="service-icon">💧</div>
+                <h3>Drenlagnir</h3>
+                <p>Fagleg drenlagnavinnsla sem tryggir góða vatnsflæði og verndar framkvæmdir þínar.</p>
+            </div>
+            <div class="service-card">
+                <div class="service-icon">🏗️</div>
+                <h3>Kranabílaþjónusta</h3>
+                <p>Við bjóðum kraftmikla kranabílaþjónustu fyrir flutning og uppsetningu þungra hlutar.</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="about" id="about">
+        <div class="about-container">
+            <div class="about-content">
+                <h2>Um Esjuverk</h2>
+                <p>Esjuverk er traustverð jarðvinnu- og uppfættuþjónusta með yfir 15 ára reynslu á Íslandi.</p>
+                <p>Við höfum framkvæmt ótalmargar framkvæmdir frá litlum verkefnum til stærri iðnaðarverkefna.</p>
+                <p>Okkar fagmenn eru þjálfaðir og reyndir, og við erum skuldbundin gegn gæðum og áreiðanleika.</p>
+                <p>Við höfum nútímalega búnaði og tæki til að framkvæma allt sem þarf innan okkar sérgreina.</p>
+                <a href="#contact" class="hero-btn" style="margin-top: 1.5rem;">Hafa samband</a>
+            </div>
+            <div class="about-image">
+                <img src="images/ECF45C62-3770-4AA3-B692-3FA7A929C31F.jpeg" alt="Um Esjuverk">
+            </div>
+        </div>
+    </section>
+
+    <section class="cta" id="contact">
+        <div class="cta-container">
+            <h2>Ertu tilbúin(n) að hefja þitt verkefni?</h2>
+            <p>Hafðu samband við okkur í dag fyrir óbindandi tilboð og frekari upplýsingar um okkar þjónustu.</p>
+            <div class="cta-buttons">
+                <button class="cta-btn primary" onclick="alert('Sími fyrir Esjuverk');">📞 Hringdu</button>
+                <button class="cta-btn secondary" onclick="alert('Sendu okkur tölvupóst');">✉️ Sendu póstur</button>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-grid">
+                <div class="footer-section">
+                    <h4>Um Esjuverk</h4>
+                    <p>Fagleg jarðvinnu- og uppfættuþjónusta á Íslandi með yfir 15 ára reynslu.</p>
+                </div>
+                <div class="footer-section">
+                    <h4>Okkar Þjónustur</h4>
+                    <p><a href="#services">Hellulagnir</a></p>
+                    <p><a href="#services">Jarðvinna</a></p>
+                    <p><a href="#services">Drenlagnir</a></p>
+                    <p><a href="#services">Kranabílaþjónusta</a></p>
+                </div>
+                <div class="footer-section">
+                    <h4>Hafa Samband</h4>
+                    <p>📞 Sími</p>
+                    <p>✉️ netfang@esjuverk.is</p>
+                    <p>📍 Reykjavík, Ísland</p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 Esjuverk. Öll réttindi áskilin.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        let currentSlide = 0;
+        const slides = document.querySelectorAll('.slide');
+        const dots = document.querySelectorAll('.dot');
+        const totalSlides = slides.length;
+        let autoSlideTimer;
+
+        function showSlide(index) {
+            if (index >= totalSlides) currentSlide = 0;
+            else if (index < 0) currentSlide = totalSlides - 1;
+            else currentSlide = index;
+
+            slides.forEach((slide, idx) => {
+                slide.classList.toggle('active', idx === currentSlide);
+            });
+
+            dots.forEach((dot, idx) => {
+                dot.classList.toggle('active', idx === currentSlide);
+            });
+
+            clearTimeout(autoSlideTimer);
+            startAutoSlide();
+        }
+
+        function changeSlide(n) { showSlide(currentSlide + n); }
+        function goToSlide(n) { showSlide(n); }
+        function startAutoSlide() {
+            autoSlideTimer = setTimeout(() => changeSlide(1), 5000);
+        }
+
+        showSlide(0);
+    </script>
+</body>
+</html>
+'@
+
+Set-Content -Path "C:\Users\repos\Esjuverk\index.html" -Value $html -Encoding UTF8
+Write-Host "✓ index.html created successfully at C:\Users\repos\Esjuverk\index.html"
+Get-Item -Path "C:\Users\repos\Esjuverk\index.html" | Select-Object FullName, Length
