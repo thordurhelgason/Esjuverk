@@ -5,14 +5,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="Esjuverk býður upp á faglegar og traustar framkvæmdir í jarðvinnu, hellulögn, kranabílaþjónustu, drenlögn og þökulögn. Við búum yfir öllum helstu tækjum og tólum sem nauðsynleg eru til þess að tryggja gæði og skilvirkni.">
-    <title>Hellulagnir, Jarðvinna, Drenlagnir, Þökulagnir, Kranabílaþjónusta, Hellulögn, Dren, Þökulögn, Kranabíll, Jarðvegsskipti | Esjuverk</title>
+    <title>Hellulagnir, Jarðvinna, Drenlagnir, Þökulagnir, Kranabílaþjónusta, Hellulögn, Þökulögn | Esjuverk</title>
     <link rel="icon" href="images/favicon-32x32.png" type="image/png">
     <script type="application/ld+json">
         {
         "@context": "https://schema.org",
         "@type": "LocalBusiness",
         "name": "Esjuverk",
-        "description": "Hellulagnir, Jarðvinna, Drenlagnir, Þökulagnir, Kranabílaþjónusta, Hellulögn, Dren, Þökulögn, Kranabíll, Jarðvegsskipti",
+        "description": "Hellulagnir, Drenlagnir, Kranabílaþjónusta, Hellulögn, Þökulögn, Jarðvegsskipti",
         "url": "https://esjuverk.is",
         "telephone": "+354-692-9191",
         "address": {
@@ -41,11 +41,11 @@
         
         /* Header */
         header { background: var(--white); box-shadow: 0 2px 10px rgba(0,0,0,0.1); position: sticky; top: 0; z-index: 1000; }
-        nav { display: flex; justify-content: space-between; align-items: center; padding: 1rem 5%; max-width: 1400px; margin: 0 auto; }
+        nav { display: flex; justify-content: flex-start; align-items: center; padding: 1rem 5%; max-width: 1400px; margin: 0 auto; }
         .logo-container { display: flex; align-items: center; text-decoration: none; color: var(--dark); }
         .logo-container img { height: 50px; width: auto; margin-right: 1rem; }
         .logo-text h1 { font-size: 1.8rem; font-weight: 700; color: var(--primary); letter-spacing: 1px; }
-        .nav-links { display: flex; gap: 2rem; list-style: none; }
+        .nav-links { display: flex; gap: 2rem; list-style: none; margin-left: auto; }
         .nav-links a { text-decoration: none; color: var(--dark); font-weight: 500; transition: color 0.3s; padding: 0.5rem 0; border-bottom: 2px solid transparent; }
         .nav-links a:hover { color: var(--primary); border-bottom-color: var(--primary); }
         
@@ -67,7 +67,7 @@
         .slide.active { opacity: 1; }
         .slide img { width: 100%; height: 100%; object-fit: cover; }
         .slide-overlay { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(35,31,32,0.4); display: flex; align-items: center; justify-content: center; flex-direction: column; color: var(--white); text-align: center; }
-        .hero-content h2 { font-size: 3rem; margin-bottom: 1rem; text-shadow: 2px 2px 4px rgba(0,0,0,0.5); font-weight: 700; }
+        .hero-content h1 { font-size: 3rem; margin-bottom: 1rem; text-shadow: 2px 2px 4px rgba(0,0,0,0.5); font-weight: 700; }
         .hero-content p { font-size: 1.3rem; text-shadow: 1px 1px 3px rgba(0,0,0,0.5); margin-bottom: 2rem; }
         .hero-btn { background-color: var(--primary); color: var(--white); border: none; padding: 1rem 2.5rem; font-size: 1rem; border-radius: 5px; cursor: pointer; transition: all 0.3s; font-weight: 600; text-decoration: none; display: inline-block; }
         .hero-btn:hover { background-color: #d17a23; transform: translateY(-2px); box-shadow: 0 5px 15px rgba(225,137,43,0.3); }
@@ -171,7 +171,6 @@
         @media (max-width: 480px) {
             nav { padding: 0.8rem 3%; }
             .logo-container img { height: 40px; }
-            .logo-text h1 { font-size: 1.3rem; }
             .menu-toggle { font-size: 1.3rem; }
             .nav-links { gap: 0.5rem; font-size: 0.8rem; }
             .nav-links a { padding: 0.8rem; }
@@ -194,7 +193,6 @@
         <nav>
             <a href="#" class="logo-container">
                 <img src="images/Esjuverk-Logo.jpg" alt="Esjuverk Logo">
-                <div class="logo-text"><h1>ESJUVERK</h1></div>
             </a>
             <button class="menu-toggle" id="menuToggle">☰</button>
             <ul class="nav-links" id="navLinks">
@@ -208,20 +206,20 @@
     <section class="hero">
         <div class="slideshow-container">
             <div class="slide active">
-                <img src="images/7.jpg" alt="Verkefni 4">
+                <img src="images/7.jpg" alt="Jarðvegsvinna og Jarðvegsskipti">
                 <div class="slide-overlay">
                     <div class="hero-content">
-                        <h2>Jarðvegsvinna</h2>
+                        <h1>Jarðvegsvinna</h1>
                         <p>Við bjóðum upp á faglega þjónustu í jarðvegsvinnu og öðrum lóðaframkvæmdum </p>
                         <a href="#services" class="hero-btn">Okkar þjónusta</a>
                     </div>
                 </div>
             </div>
             <div class="slide">
-                <img src="images/Dren.JPG" alt="Dren">
+                <img src="images/Dren.JPG" alt="Drenlagnir">
                 <div class="slide-overlay">
                     <div class="hero-content">
-                        <h2>Drenlagnir</h2>
+                        <h1>Drenlagnir</h1>
                         <p>Við tökum að okkur dren- og frárennslislagnir fyrir heimili, húsfélög og fyrirtæki </p>
                         <a href="#services" class="hero-btn">Okkar þjónusta</a>
                     </div>
@@ -231,7 +229,7 @@
                 <img src="images/3FB60E39-8E3B-443B-B78F-C67358053C88.jpeg" alt="Kranabíll">
                 <div class="slide-overlay">
                     <div class="hero-content">
-                        <h2>Kranabílaþjónusta</h2>
+                        <h1>Kranabílaþjónusta</h1>
                         <p>Við bjóðum upp á trausta kranabílaþjónustu fyrir flutninga og sérstök verkefni</p>
                         <a href="#services" class="hero-btn">Okkar þjónusta</a>
                     </div>
@@ -241,7 +239,7 @@
                 <img src="images/IMG_2668.jpeg" alt="Þökulögn">                                    
                 <div class="slide-overlay">
                     <div class="hero-content">
-                        <h2>Þökulögn</h2>
+                        <h1>Þökulögn</h1>
                         <p>Við bjóðum upp á vandaða þökulögn fyrir sterkan og endingargóðan frágang </p>
                         <a href="#services" class="hero-btn">Okkar þjónusta</a>
                     </div>
@@ -251,7 +249,7 @@
                 <img src="images/6.jpg" alt="Hellulögn">
                 <div class="slide-overlay">
                     <div class="hero-content">
-                        <h2>Hellulögn</h2>
+                        <h1>Hellulögn</h1>
                         <p>Við bjóðum upp á fallegar og vandaðar hellulagnir fyrir stíga, plön og innkeyrslur</p>
                         <a href="#services" class="hero-btn">Frekari upplýsingar</a>
                     </div>
@@ -311,7 +309,7 @@
                 <a href="#contact" class="hero-btn" style="margin-top: 1.5rem;">Hafa samband</a>
             </div>
             <div class="about-image">
-                <img src="images/ECF45C62-3770-4AA3-B692-3FA7A929C31F.jpeg" alt="Um Esjuverk">
+                <img src="images/ECF45C62-3770-4AA3-B692-3FA7A929C31F.jpeg" alt="Hellulagning og jarðvinna">
             </div>
         </div>
     </section>
